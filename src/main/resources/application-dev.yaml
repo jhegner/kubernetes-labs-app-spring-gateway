@@ -1,0 +1,35 @@
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:          
+          routes:
+            - id: users_route # rest
+              uri: http://localhost:3001
+              predicates:
+                - Path=/api/users # path public que será exposto pelo gateway
+              methods:
+                - GET
+              filters:
+                - StripPrefix=2 # Remove /api/users do path antes de encaminhar
+                - SetPath=/moock/users # Define o novo path
+
+            - id: products_route # grpc (proxy interno)
+              uri: http://localhost:8082 # Outra URL fictícia
+              predicates:
+                - Path=/api/products # path public que será exposto pelo gateway
+              filters:
+                - StripPrefix=2 # Remove /api/products do path antes de encaminhar
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "actuator,health,prometheus"
+
+logging:
+  structured:
+    format:
+      console: ecs # Formato de log estruturado para console - format Elastic Common Schema (ECS)        
+  level:
+   br.com.jhegner.k8slabs: INFO
