@@ -3,13 +3,36 @@
     <!-- 🌱 Load application name from Spring environment -->
     <springProperty scope="context" name="appName" source="spring.application.name" />
 
+    <!-- 📋 Default appender (usado quando nenhum profile específico está ativo) -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <!-- 🧪 Development Profile -->
     <springProfile name="local &amp; prettylog">
+        <appender name="LOCAL_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+                <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                    <prettyPrint>true</prettyPrint>
+                </jsonFormatter>
+                <timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
+            </layout>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="LOCAL_CONSOLE" />
+        </root>
+    </springProfile>
+
+
+    <!-- 🚀 Production Profile -->
+    <springProfile name="dev">
         <appender name="DEV_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
             <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
-                <jsonFormatter
-                    class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
-                    <prettyPrint>true</prettyPrint>
+                <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                    <prettyPrint>false</prettyPrint>
                 </jsonFormatter>
                 <timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
             </layout>
@@ -20,19 +43,9 @@
         </root>
     </springProfile>
 
-
-    <!-- 🚀 Production Profile -->
-    <springProfile name="dev">
-        <appender name="DEV_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-                <prettyPrint>false</prettyPrint>
-                <customFields>{"env":"prod"}</customFields>
-            </encoder>
-        </appender>
-
-        <root level="INFO">
-            <appender-ref ref="DEV_CONSOLE" />
-        </root>
-    </springProfile>
+    <!-- Root logger padrão (usado quando nenhum profile específico corresponde) -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+    </root>
 
 </configuration>
