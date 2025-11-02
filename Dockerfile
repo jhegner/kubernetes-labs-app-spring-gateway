@@ -33,7 +33,7 @@ COPY --from=build /app/target/kubernetes-labs-*.jar application.jar
 
 # Define variáveis de ambiente
 ARG TZDATA_VERSION=2025b-r0
-ARG CURL_VERSION=8.14.1-r1
+ARG CURL_VERSION=8.14.1-r2
 ARG BASH_VERSION=5.2.37-r0
 
 # Instala o timezone America/Sao_Paulo e utilitários úteis para debug
