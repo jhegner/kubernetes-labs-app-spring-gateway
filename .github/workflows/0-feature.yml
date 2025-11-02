@@ -9,7 +9,7 @@ jobs:
   ci-feature:
     uses: jhegner/kubernetes-labs-ci-workflows/.github/workflows/0-reusable-feature.yml@main
     with:
-      project-name: kubernetes-labs-app-micronout
+      project-name: kubernetes-labs-app-spring-gateway
       source-branch: ${{ github.ref_name }}
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}

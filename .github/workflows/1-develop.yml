@@ -9,12 +9,12 @@ jobs:
   ci-feature:
     uses: jhegner/kubernetes-labs-ci-workflows/.github/workflows/1.2-reusable-develop.yml@develop
     with:
-      image-name: "kubernetes-labs-app-micronout"
-      app-description: "Aplicacao micronout do projeto-1 do lab kubernetes"
+      image-name: "kubernetes-labs-app-spring-gateway"
+      app-description: "Aplicacao spring gateway do projeto-1 do lab kubernetes"
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
       VULTR_API_KEY: ${{ secrets.VULTR_API_KEY }}
       VULTR_REGISTRY_URN: ${{ secrets.VULTR_REGISTRY_URN }}
-      VULTR_REGISTRY_USERNAME: ${{ secrets.VULTR_REGISTRY_USERNAME }}   
+      VULTR_REGISTRY_USERNAME: ${{ secrets.VULTR_REGISTRY_USERNAME }}
       VULTR_REGISTRY_PASSWORD: ${{ secrets.VULTR_REGISTRY_PASSWORD }}
-      VULTR_CONTAINER_REGISTRY_NAME: ${{ secrets.VULTR_CONTAINER_REGISTRY_NAME }} 
+      VULTR_CONTAINER_REGISTRY_NAME: ${{ secrets.VULTR_CONTAINER_REGISTRY_NAME }}
