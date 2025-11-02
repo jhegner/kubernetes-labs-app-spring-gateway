@@ -1,0 +1,18 @@
+name: 🛠️ - CI Feature (push)
+
+on:
+  push:
+    branches:
+      - feature/**
+
+jobs:
+  ci-feature:
+    uses: jhegner/kubernetes-labs-ci-workflows/.github/workflows/0-reusable-feature.yml@main
+    with:
+      project-name: kubernetes-labs-app-micronout
+      source-branch: ${{ github.ref_name }}
+    secrets:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_KEY: ${{ secrets.SONAR_KEY }}
+      MOCKAPI_PROJECT_SECRET: ${{ secrets.MOCKAPI_PROJECT_SECRET }}
